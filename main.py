@@ -13,7 +13,7 @@ running = True
 state = "menu"
 
 
-def showMenu():
+def showMenu(click, state):
     #Title
     titleText = "Aim Trainer"
     title = font.render(titleText, True, white , None)
@@ -28,12 +28,23 @@ def showMenu():
     if easyButtonRect.collidepoint(mouse):
         easyButtonRect = pg.Rect((WIDTH/2) - 200 -10, 200 - 10, 400, 50)
         pg.mouse.set_cursor(pg.SYSTEM_CURSOR_HAND)
+        if click:
+            state = "easy"
+            
+
     elif medButtonRect.collidepoint(mouse):
         medButtonRect = pg.Rect((WIDTH/2) - 200 -10, 200 + 100 -10, 400, 50)
         pg.mouse.set_cursor(pg.SYSTEM_CURSOR_HAND)
+        if click:
+            state = "med"
+            
+
     elif hardButtonRect.collidepoint(mouse):
         hardButtonRect = pg.Rect((WIDTH/2) - 200 - 10, 200 + 200 -10, 400, 50)
         pg.mouse.set_cursor(pg.SYSTEM_CURSOR_HAND)
+        if click:
+            state = "hard"
+
     else:
         pg.mouse.set_cursor(pg.SYSTEM_CURSOR_ARROW)
     
@@ -53,10 +64,11 @@ def showMenu():
     hardButton = pg.draw.rect(screen, white, hardButtonRect)
     hardRect = hardText.get_rect(center = hardButtonRect.center)
     screen.blit(hardText, hardRect)
+    return state
 
 
     
-
+click = False
 
 
 while running:
@@ -65,11 +77,14 @@ while running:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             running = False
+        if event.type == pg.MOUSEBUTTONDOWN:
+            click = True
+        else: click = False
     screen.fill("black")
-    
-    if running and state == "menu":
-        showMenu()
-
+    if (running and state == "menu"):
+        state = showMenu(click, state)
+    else: break
+    print(state)
     pg.display.flip()
     clock.tick(60)  # limits FPS to 60
 
