@@ -9,7 +9,8 @@ clock = pg.time.Clock()
 pg.font.init()
 font = pg.font.Font("lemon_milk/LEMONMILK-Regular.otf", 42)
 running = True
-
+#Time difference, Time On, Size, distance
+easySetting = [3, 5, 15, 100]
 state = "menu"
 
 
@@ -66,6 +67,12 @@ def showMenu(click, state):
     screen.blit(hardText, hardRect)
     return state
 
+def game(settings):
+    timeDifference = settings[0]
+    timeOn = settings[1]
+    size = settings[2]
+    distance = settings[3]
+    
 
     
 click = False
@@ -83,8 +90,10 @@ while running:
     screen.fill("black")
     if (running and state == "menu"):
         state = showMenu(click, state)
-    else: break
-    print(state)
+    elif (running and state == "easy"):
+        game(easySetting)
+        
+    # print(state)
     pg.display.flip()
     clock.tick(60)  # limits FPS to 60
 
