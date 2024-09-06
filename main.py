@@ -10,7 +10,7 @@ pg.font.init()
 font = pg.font.Font("lemon_milk/LEMONMILK-Regular.otf", 42)
 running = True
 #Time difference, Time On, Size, distance
-easySetting = [3, 5, 15, 100]
+easySetting = [3, 5, 15, 100, "EASY"]
 state = "menu"
 
 
@@ -31,6 +31,7 @@ def showMenu(click, state):
         pg.mouse.set_cursor(pg.SYSTEM_CURSOR_HAND)
         if click:
             state = "easy"
+        
             
 
     elif medButtonRect.collidepoint(mouse):
@@ -72,7 +73,7 @@ def game(settings):
     timeOn = settings[1]
     size = settings[2]
     distance = settings[3]
-    
+    print(settings[4])
 
     
 click = False
@@ -95,6 +96,6 @@ while running:
         
     # print(state)
     pg.display.flip()
-    clock.tick(60)  # limits FPS to 60
+    clock.tick(60)  #limits FPS to 60
 
 pg.quit()
