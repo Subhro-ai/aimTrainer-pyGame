@@ -12,6 +12,7 @@ running = True
 #Time difference, Time On, Size, distance
 easySetting = [3, 5, 15, 100]
 state = "menu"
+timer =0
 
 
 def showMenu(click, state):
@@ -72,6 +73,23 @@ def game(settings):
     timeOn = settings[1]
     size = settings[2]
     distance = settings[3]
+    global timer
+    currentTime = int(timer/60)
+    print("1")
+    while state == "easy" or "med" or "hard":
+        print("2")
+        while (timer / 60) - currentTime < 3:
+            print("3")
+            screen.fill("black")
+            timer += 1
+            count = font.render(str(int((timer / 60) - currentTime) + 1), True, white, None)
+            container = pg.Rect((WIDTH/2) - 200, HEIGHT / 2 - 100, 400, 100)
+            textRect = count.get_rect(center = container.center)
+            screen.blit(count, textRect)
+            pg.display.flip()
+            clock.tick(60) 
+        return "menu"
+    
     
 
     
@@ -91,9 +109,12 @@ while running:
     if (running and state == "menu"):
         state = showMenu(click, state)
     elif (running and state == "easy"):
-        game(easySetting)
-        
-    # print(state)
+        state = game(easySetting)
+        print("SDF")
+    
+    timer +=1
+    secs = int(timer/60)
+    # print(secs)
     pg.display.flip()
     clock.tick(60)  # limits FPS to 60
 
